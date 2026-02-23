@@ -111,8 +111,12 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'hello@transfercase.com'),
+        'name' => env('MAIL_FROM_NAME', 'Transfercase Unlimited'),
+    ],
+    'to' => [
+        'address' => env('MAIL_TO_ADDRESS', 'transfercasegeo@aol.com'),
+        'name' => env('MAIL_TO_NAME', 'Transfercase Unlimited'),
     ],
 
 ];

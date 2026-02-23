@@ -42,7 +42,7 @@ class ContactForm extends Component
             ]);
 
             // Send email to info@cara.dev
-            Mail::to('test@example.com')->send(new ContactInquiryMail($inquiry));
+            Mail::to(config('mail.to.address'))->send(new ContactInquiryMail($inquiry));
 
             session()->flash('success', 'Thank you for contacting us! We will get back to you as soon as possible.');
 
