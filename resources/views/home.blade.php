@@ -70,7 +70,7 @@
           <div class="flex flex-col md:grid md:grid-cols-2 gap-7 items-center max-w-5xl mx-auto">
 
               <div>
-{{--                  <livewire:display />--}}
+                  <livewire:display-image />
               </div>
 
               <div class="space-y-6">
