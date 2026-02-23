@@ -17,7 +17,13 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Super Admin',
-            'email' => 'test@example.com',
+            'email' => 'nick@cara.dev',
+        ]);
+
+        // Seed roles and permissions
+        $this->call([
+            RolePermissionSeeder::class,
+            AssignUserRolesSeeder::class,
         ]);
     }
 }
