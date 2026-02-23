@@ -2,13 +2,12 @@
     {{-- Header --}}
     <div class="flex justify-between items-center">
         <div>
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">User Management</h2>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Manage users and their roles</p>
+            <flux:heading size="xl">User Management</flux:heading>
+            <flux:subheading>Manage users and their roles</flux:subheading>
         </div>
-        <button wire:click="createUser"
-                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-            + Create User
-        </button>
+        <flux:button wire:click="createUser" variant="primary" icon="plus">
+            Create User
+        </flux:button>
     </div>
 
     {{-- Flash Messages --}}
@@ -133,114 +132,48 @@
     </div>
 
     {{-- Modal --}}
-    @if($showModal)
-        <div class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                {{-- Background overlay --}}
-                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-                     wire:click="closeModal"></div>
-
-                {{-- Modal panel --}}
-                <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                    <form wire:submit.prevent="saveUser">
-                        <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">
-                                {{ $editMode ? 'Edit User' : 'Create New User' }}
-                            </h3>
-
-                            {{-- Name --}}
-                            <div class="mb-4">
-                                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                    Name <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text"
-                                       wire:model="name"
-                                       id="name"
-                                       class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
-                                @error('name')
-                                    <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            {{-- Email --}}
-                            <div class="mb-4">
-                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                    Email <span class="text-red-500">*</span>
-                                </label>
-                                <input type="email"
-                                       wire:model="email"
-                                       id="email"
-                                       class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
-                                @error('email')
-                                    <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            {{-- Role --}}
-                            <div class="mb-4">
-                                <label for="role" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                    Role <span class="text-red-500">*</span>
-                                </label>
-                                <select wire:model="selectedRole"
-                                        id="role"
-                                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
-                                    <option value="">Select a role</option>
-                                    @foreach($roles as $role)
-                                        <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option>
-                                    @endforeach
-                                </select>
-                                @error('selectedRole')
-                                    <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            {{-- Password --}}
-                            <div class="mb-4">
-                                <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                    Password
-                                    @if(!$editMode)
-                                        <span class="text-red-500">*</span>
-                                    @else
-                                        <span class="text-gray-500 text-xs">(leave blank to keep current)</span>
-                                    @endif
-                                </label>
-                                <input type="password"
-                                       wire:model="password"
-                                       id="password"
-                                       class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
-                                @error('password')
-                                    <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            {{-- Password Confirmation --}}
-                            <div class="mb-4">
-                                <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                    Confirm Password
-                                </label>
-                                <input type="password"
-                                       wire:model="password_confirmation"
-                                       id="password_confirmation"
-                                       class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
-                            </div>
-                        </div>
-
-                        {{-- Modal Footer --}}
-                        <div class="bg-gray-50 dark:bg-gray-900 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse gap-2">
-                            <button type="submit"
-                                    class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 sm:ml-3 sm:w-auto sm:text-sm">
-                                {{ $editMode ? 'Update' : 'Create' }}
-                            </button>
-                            <button type="button"
-                                    wire:click="closeModal"
-                                    class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-800 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 sm:mt-0 sm:w-auto sm:text-sm">
-                                Cancel
-                            </button>
-                        </div>
-                    </form>
-                </div>
+    <flux:modal wire:model="showModal" class="max-w-lg">
+        <form wire:submit.prevent="saveUser" class="space-y-6">
+            <div>
+                <flux:heading size="lg">{{ $editMode ? 'Edit User' : 'Create New User' }}</flux:heading>
+                <flux:subheading>Enter the user's details below.</flux:subheading>
             </div>
-        </div>
-    @endif
+
+            <flux:input wire:model="name" label="Name" required autofocus />
+
+            <flux:input wire:model="email" label="Email" type="email" required />
+
+            <div class="space-y-2">
+                <flux:label>Role</flux:label>
+                <select wire:model="selectedRole"
+                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    <option value="">Select a role</option>
+                    @foreach($roles as $role)
+                        <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option>
+                    @endforeach
+                </select>
+                @error('selectedRole')
+                    <p class="text-sm text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <flux:input wire:model="password" label="Password" type="password" />
+            @if($editMode)
+                <p class="text-xs text-gray-500 -mt-4">Leave blank to keep current password.</p>
+            @endif
+
+            <flux:input wire:model="password_confirmation" label="Confirm Password" type="password" />
+
+            <div class="flex justify-end space-x-2">
+                <flux:modal.close>
+                    <flux:button variant="filled">Cancel</flux:button>
+                </flux:modal.close>
+
+                <flux:button variant="primary" type="submit">
+                    {{ $editMode ? 'Update' : 'Create' }}
+                </flux:button>
+            </div>
+        </form>
+    </flux:modal>
 </div>
 

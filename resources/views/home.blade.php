@@ -128,16 +128,18 @@
                           Send us a message using the form below and we will get back to you as quick as possible. Be sure
                           to include as much information as possible so we can better assist you.
                       </p>
-{{--                      <livewire:inquiry-form />--}}
+                      <livewire:contact-form />
                   </div>
               </section>
           </div>
       </main>
-      <footer class="h-40 bg-brandBlue text-white">
+      <footer class="h-40 bg-orange-500 text-white">
           <div class="grid justify-center items-center h-full">
-              Copyright &copy; 2023 Transfercase Unlimited Inc.
+              Copyright &copy; <?php echo date('Y') ?> Transfercase Unlimited Inc.
           </div>
       </footer>
+
+  <div class="text-center">Developed and Managed by <a href="https://cara.dev" class="text-orange-500 hover:underline">Caravel Development</a></div>
 
 
   </body>

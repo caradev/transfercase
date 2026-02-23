@@ -3,39 +3,46 @@
 namespace App\Livewire\Admin;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Hash;
 
 class UserManagement extends Component
 {
     use WithPagination;
 
     public $showModal = false;
+
     public $editMode = false;
+
     public $userId;
 
     // Form fields
     public $name;
+
     public $email;
+
     public $password;
+
     public $password_confirmation;
+
     public $selectedRole;
 
     // Search and filter
     public $search = '';
+
     public $roleFilter = '';
 
     protected function rules()
     {
         $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . ($this->userId ?? 'NULL'),
+            'email' => 'required|email|unique:users,email,'.($this->userId ?? 'NULL'),
             'selectedRole' => 'required|exists:roles,name',
         ];
 
-        if (!$this->editMode || $this->password) {
+        if (! $this->editMode || $this->password) {
             $rules['password'] = 'required|string|min:8|confirmed';
         }
 
@@ -45,7 +52,7 @@ class UserManagement extends Component
     public function mount()
     {
         // Check if user has permission
-        if (!auth()->user()->hasRole('admin')) {
+        if (! auth()->user()->hasRole('admin')) {
             abort(403, 'Unauthorized access.');
         }
     }
@@ -54,8 +61,8 @@ class UserManagement extends Component
     {
         $users = User::query()
             ->when($this->search, function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('email', 'like', '%' . $this->search . '%');
+                $query->where('name', 'like', '%'.$this->search.'%')
+                    ->orWhere('email', 'like', '%'.$this->search.'%');
             })
             ->when($this->roleFilter, function ($query) {
                 $query->whereHas('roles', function ($q) {
@@ -127,7 +134,7 @@ class UserManagement extends Component
             $this->closeModal();
             $this->resetPage();
         } catch (\Exception $e) {
-            session()->flash('error', 'Error saving user: ' . $e->getMessage());
+            session()->flash('error', 'Error saving user: '.$e->getMessage());
         }
     }
 
@@ -137,6 +144,7 @@ class UserManagement extends Component
             // Prevent deleting yourself
             if ($id == auth()->id()) {
                 session()->flash('error', 'You cannot delete your own account!');
+
                 return;
             }
 
@@ -146,7 +154,7 @@ class UserManagement extends Component
             session()->flash('success', 'User deleted successfully!');
             $this->resetPage();
         } catch (\Exception $e) {
-            session()->flash('error', 'Error deleting user: ' . $e->getMessage());
+            session()->flash('error', 'Error deleting user: '.$e->getMessage());
         }
     }
 
@@ -158,7 +166,7 @@ class UserManagement extends Component
 
             session()->flash('success', 'Role updated successfully!');
         } catch (\Exception $e) {
-            session()->flash('error', 'Error updating role: ' . $e->getMessage());
+            session()->flash('error', 'Error updating role: '.$e->getMessage());
         }
     }
 
@@ -189,4 +197,3 @@ class UserManagement extends Component
         $this->resetPage();
     }
 }
-

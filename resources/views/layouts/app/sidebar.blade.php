@@ -22,6 +22,9 @@
                     <flux:sidebar.item icon="users" :href="route('admin.users')" :current="request()->routeIs('admin.users')" wire:navigate>
                         {{ __('User Management') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item icon="envelope" :href="route('admin.contact-inquiries')" :current="request()->routeIs('admin.contact-inquiries')" wire:navigate>
+                        {{ __('Contact Inquiries') }}
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
                 @endrole
             </flux:sidebar.nav>
