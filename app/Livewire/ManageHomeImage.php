@@ -2,16 +2,18 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Storage;
 
 class ManageHomeImage extends Component
 {
     use WithFileUploads;
 
     public $image;
+
     public $currentImage;
+
     public bool $canManage = false;
 
     public function mount()
@@ -22,18 +24,20 @@ class ManageHomeImage extends Component
 
     public function updatedImage()
     {
-        if (!$this->canManage) {
+        if (! $this->canManage) {
             return;
         }
 
         $this->validate([
             'image' => 'image|max:5120', // 5MB Max
-        ]);}
+        ]);
+    }
 
-    public function save()
+    public function uploadImage()
     {
-        if (!$this->canManage) {
+        if (! $this->canManage) {
             session()->flash('error', 'You do not have permission to manage the home image.');
+
             return;
         }
 
@@ -55,13 +59,14 @@ class ManageHomeImage extends Component
         $this->currentImage = $path;
         $this->image = null;
 
-        session()->flash('message', 'Image updated successfully!');
+        session()->flash('success', 'Image updated successfully!');
     }
 
-    public function delete()
+    public function deleteImage()
     {
-        if (!$this->canManage) {
+        if (! $this->canManage) {
             session()->flash('error', 'You do not have permission to manage the home image.');
+
             return;
         }
 
@@ -72,7 +77,7 @@ class ManageHomeImage extends Component
             $user->update(['home_image' => null]);
             $this->currentImage = null;
 
-            session()->flash('message', 'Image deleted successfully!');
+            session()->flash('success', 'Image deleted successfully!');
         }
     }
 

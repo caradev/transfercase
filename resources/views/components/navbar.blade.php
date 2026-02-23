@@ -32,8 +32,14 @@
                         Ram
                     </p>
 
-                    <a href="#contact" class="mt-2 mb-2 btn-italic py-3 px-4 text-center rounded bg-white font-medium text-orange-500
+                    @auth()
+                        <a class="mt-2 mb-2 btn-italic py-3 px-4 text-center rounded bg-white font-medium text-orange-500
+                           hover:text-white hover:bg-orange-300 transition duration-200" href="{{ route('dashboard') }}">Dashboard</a>
+                    @else
+                        <a href="#contact" class="mt-2 mb-2 btn-italic py-3 px-4 text-center rounded bg-white font-medium text-orange-500
                 hover:text-white hover:bg-orange-300 transition duration-200">Contact</a>
+                    @endauth
+
                 </div>
             </div>
 
