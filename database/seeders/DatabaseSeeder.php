@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Super Admin',
+        User::query()->updateOrCreate([
             'email' => 'nick@cara.dev',
+        ], [
+            'name' => 'Nick Cara',
+            'password' => 'password',
+            'email_verified_at' => Carbon::now(),
         ]);
 
         // Seed roles and permissions

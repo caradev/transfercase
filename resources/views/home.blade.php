@@ -89,7 +89,7 @@
                           </p>
                       </div>
 
-                      <div>
+                      <div class="mt-3">
                           <h3 class="text-2xl font-bold font-brand">
                               Best Materials
                           </h3>
@@ -124,7 +124,7 @@
                   <div class="py-8 lg:py-16 px-4 mx-auto max-w-3xl">
                       <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
                           Contact Us</h2>
-                      <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">
+                      <p class="mb-8 lg:mb-16 font-light text-center text-gray-700 dark:text-gray-400 sm:text-xl">
                           Send us a message using the form below and we will get back to you as quick as possible. Be sure
                           to include as much information as possible so we can better assist you.
                       </p>

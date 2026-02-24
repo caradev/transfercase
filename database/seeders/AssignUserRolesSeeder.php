@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class AssignUserRolesSeeder extends Seeder
 {
@@ -12,11 +13,12 @@ class AssignUserRolesSeeder extends Seeder
      */
     public function run(): void
     {
-        // Get the first user and make them an admin
-        $firstUser = User::first();
-        if ($firstUser && !$firstUser->hasRole('admin')) {
-            $firstUser->assignRole('admin');
-            $this->command->info("User '{$firstUser->email}' assigned admin role.");
+        $adminRole = Role::query()->firstOrCreate(['name' => 'admin']);
+        $adminUser = User::query()->where('email', 'nick@cara.dev')->first();
+
+        if ($adminUser) {
+            $adminUser->syncRoles([$adminRole->name]);
+            $this->command->info("User '{$adminUser->email}' assigned admin role.");
         }
 
         // Assign 'user' role to all other users without a role
@@ -26,9 +28,8 @@ class AssignUserRolesSeeder extends Seeder
             $this->command->info("User '{$user->email}' assigned user role.");
         }
 
-        if ($usersWithoutRole->isEmpty() && !$firstUser) {
+        if ($usersWithoutRole->isEmpty() && ! $adminUser) {
             $this->command->warn('No users found in the database.');
         }
     }
 }
-
