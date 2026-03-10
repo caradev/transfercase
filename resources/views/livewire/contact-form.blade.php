@@ -87,6 +87,21 @@
             @enderror
         </div>
 
+        {{-- Captcha --}}
+        <div>
+            <label for="captcha_answer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Please solve: <span class="font-bold">{{ $captcha_question }}</span> = ? <span class="text-red-500">*</span>
+            </label>
+            <input type="text"
+                   wire:model="captcha_answer"
+                   id="captcha_answer"
+                   class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 dark:shadow-sm-light"
+                   placeholder="Enter result">
+            @error('captcha_answer')
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+            @enderror
+        </div>
+
         {{-- Submit Button --}}
         <button type="submit"
                 wire:loading.attr="disabled"
