@@ -1,9 +1,9 @@
 {
     "mcpServers": {
         "laravel-boost": {
-            "command": "/home/nickmont/.config/herd-lite/bin/php",
+            "command": "/opt/homebrew/Cellar/php/8.5.2/bin/php",
             "args": [
-                "/home/nickmont/PhpstormProjects/transfercase/artisan",
+                "/Users/nickmont/PhpstormProjects/transfercase/artisan",
                 "boost:mcp"
             ]
         }
