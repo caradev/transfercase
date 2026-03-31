@@ -9,7 +9,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.5",
         "aws/aws-sdk-php": "^3.370",
         "laravel/fortify": "^1.30",
         "laravel/framework": "^12.0",
@@ -20,7 +20,7 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
-        "laravel/boost": "^2.0",
+        "laravel/boost": "^2.4",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",
         "laravel/sail": "^1.41",
@@ -71,7 +71,7 @@
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "@php artisan boost:update --ansi"
+            "@php -r \"\\$commands = shell_exec(PHP_BINARY.' artisan list --raw 2>/dev/null') ?: ''; if (! str_contains(\\$commands, 'boost:update')) { exit(0); } passthru(PHP_BINARY.' artisan boost:update --ansi', \\$exitCode); exit(\\$exitCode);\""
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
