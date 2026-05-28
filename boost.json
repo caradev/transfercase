@@ -5,21 +5,21 @@
         "copilot",
         "claude_code"
     ],
+    "cloud": false,
     "guidelines": true,
     "mcp": true,
     "nightwatch_mcp": false,
     "packages": [
-        "laravel/fortify",
         "spatie/laravel-permission"
     ],
     "sail": false,
     "skills": [
+        "fortify-development",
         "laravel-best-practices",
         "fluxui-development",
         "livewire-development",
         "pest-testing",
         "tailwindcss-development",
-        "fortify-development",
         "laravel-permission-development"
     ]
 }
